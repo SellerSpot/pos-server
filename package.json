@@ -9,7 +9,12 @@
     "dev:server": "nodemon dist --color always",
     "build": "webpack --mode production --env NODE_ENV=production --env production",
     "lint": "eslint src",
-    "lint:fix": "eslint src --fix"
+    "lint:fix": "eslint src --fix",
+    "prettier": "prettier --write src",
+    "lint-staged": "lint-staged",
+    "postinstall": "npm run husky:install",
+    "husky:install": "husky install",
+    "husky:pre-commit": "npm run lint-staged"
   },
   "repository": {
     "type": "git",
@@ -22,6 +27,13 @@
     "url": "https://github.com/SellerSpot/pos-server/issues"
   },
   "homepage": "https://github.com/SellerSpot/pos-server#readme",
+  "lint-staged": {
+    "*.{ts,tsx,less}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": "eslint --fix --max-warnings 0"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.10",
@@ -42,6 +54,8 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.0",
     "fork-ts-checker-webpack-plugin": "^6.0.7",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "ts-loader": "^8.0.12",

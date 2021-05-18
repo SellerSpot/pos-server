@@ -1,7 +1,6 @@
 import { DB_NAMES } from '@sellerspot/database-models';
 
 export * from './databaseConfig';
-export * from './expressMiddlewares';
 
 export const CONFIG = {
     ENV: process.env.ENV,
@@ -9,7 +8,7 @@ export const CONFIG = {
     DATABASE_SERVER_URL: process.env.DATABASE_SERVER_URL,
     DATABASE_SERVER_QUERY: process.env.DATABASE_SERVER_QUERY,
     GET_DATABASE_CONNECTION_URL: (): string =>
-        CONFIG.DATABASE_SERVER_URL + DB_NAMES.POINT_OF_SALE_DB + CONFIG.DATABASE_SERVER_QUERY, // subject to change (core db)
+        CONFIG.DATABASE_SERVER_URL + DB_NAMES.CORE_DB + CONFIG.DATABASE_SERVER_QUERY, // subject to change (core db)
     APP_SECRET: process.env.APP_SECRET,
-    CLIENT_BASE_DOMAIN_FOR_APPS: process.env.CLIENT_BASE_DOMAIN_FOR_APPS,
+    DOMAIN: process.env.DOMAIN,
 };

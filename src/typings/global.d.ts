@@ -1,4 +1,4 @@
-import { connection } from 'mongoose';
+import { IUserJwtTokenPayload } from '@sellerspot/universal-types';
 
 declare global {
     namespace NodeJS {
@@ -10,21 +10,11 @@ declare global {
             DATABASE_SERVER_URL: string;
             DATABASE_SERVER_QUERY: string;
             APP_SECRET: string;
-            CLIENT_BASE_DOMAIN_FOR_APPS: string;
-        }
-
-        interface Global {
-            dbConnection: typeof connection;
-            currentDb: typeof connection;
         }
     }
-
     namespace Express {
         interface Request {
-            tenantId?: string;
+            currentUser?: IUserJwtTokenPayload;
         }
     }
 }
-
-// convert it into a module by adding an empty export statement.
-export {};

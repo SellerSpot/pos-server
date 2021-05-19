@@ -1,6 +1,7 @@
-import { RequestHandler, Request, Response } from 'express';
+import { RequestHandler } from 'express';
 
-export const homeController: RequestHandler = (req: Request, res: Response) => {
+//
+export const homeController: RequestHandler = (_, res) => {
     res.send({
         status: true,
         message: 'SellerSpot pos Server API service',

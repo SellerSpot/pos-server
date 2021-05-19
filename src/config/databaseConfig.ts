@@ -1,24 +1,31 @@
+import { DbConnectionManager, DB_NAMES, models } from '@sellerspot/database-models';
+import { DatabaseConnectionError, logger } from '@sellerspot/universal-functions';
+import { CONFIG } from 'configs/config';
 import mongoose from 'mongoose';
-import { logger } from 'utilities/logger';
-import { CONFIG } from './config';
-import * as models from '@sellerspot/database-models';
-import { DB_NAMES } from '@sellerspot/database-models';
 
+/**
+ * Globals configure db
+ *
+ * configures the base db connection and sets the connnection in the global coreDb variable
+ */
 export const configureDB = (): void => {
-    global.dbConnection = mongoose.createConnection(CONFIG.GET_DATABASE_CONNECTION_URL(), {
+    const connectionObject = mongoose.createConnection(CONFIG.GET_DATABASE_CONNECTION_URL(), {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: true,
+        useFindAndModify: false,
         useCreateIndex: true,
+        poolSize: 10, // to have multiple connection in case of bottle neck
     });
-    global.dbConnection.on(
-        'error',
-        (error) =>
-            logger.mongoose(`Error Connecting to ${DB_NAMES.POINT_OF_SALE_DB}, ${error.message}`), // subject to change (core db)
-    );
-    global.dbConnection.once('open', () => {
-        logger.mongoose(`Connected to ${DB_NAMES.POINT_OF_SALE_DB}`); // subject to change (core db)
+
+    connectionObject.on('error', (err: Error) => {
+        logger.error(`Error Connecting to ${DB_NAMES.CORE_DB}, ${err.message}`);
+        throw new DatabaseConnectionError();
     });
-    global.currentDb = global.dbConnection.useDb(DB_NAMES.POINT_OF_SALE_DB); // subject to change (core db)
-    if (models.handshake === true) logger.mongoose(`Loaded All Monogoose Models`);
+
+    connectionObject.once('open', () => {
+        // initialize database-models with connection object
+        DbConnectionManager.intialize(connectionObject);
+        logger.info(`Connected to ${DB_NAMES.CORE_DB}`);
+        models.handsake === true && logger.info(`All models registeded to runtime`);
+    });
 };

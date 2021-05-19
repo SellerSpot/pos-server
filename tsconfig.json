@@ -16,20 +16,17 @@
         "downlevelIteration": true,
         "baseUrl": "src",
         "paths": {
-            "config/*": [
-                "config/*"
+            "configs/*": [
+                "configs/*"
             ],
-            "controller/*": [
-                "controller/*"
+            "controllers/*": [
+                "controllers/*"
             ],
             "models/*": [
                 "models/*"
             ],
             "routers/*": [
                 "routers/*"
-            ],
-            "sockets/*": [
-                "sockets/*"
             ],
             "typings/*": [
                 "typings/*"

@@ -1,5 +1,4 @@
 import { IUserJwtTokenPayload } from '@sellerspot/universal-types';
-
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
@@ -10,6 +9,7 @@ declare global {
             DATABASE_SERVER_URL: string;
             DATABASE_SERVER_QUERY: string;
             APP_SECRET: string;
+            DOMAIN: string;
         }
     }
     namespace Express {
@@ -18,3 +18,6 @@ declare global {
         }
     }
 }
+
+// convert it into a module by adding an empty export statement.
+export {};

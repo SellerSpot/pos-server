@@ -10,7 +10,7 @@ const webpackConfiguration = (env: { ENV: 'production' | 'development' }): Confi
     return {
         entry: './src',
         externals: [nodeExternals()],
-        devtool: !isProduction ? 'source-map' : false,
+        devtool: !isProduction ? 'eval-source-map' : false,
         resolve: {
             extensions: ['.ts', '.js'],
             plugins: [new TsconfigPathsPlugin()],
@@ -47,6 +47,7 @@ const webpackConfiguration = (env: { ENV: 'production' | 'development' }): Confi
             __filename: false,
             __dirname: false,
         },
+        watch: !isProduction,
     };
 };
 

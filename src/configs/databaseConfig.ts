@@ -12,7 +12,7 @@ export const configureDB = (): void => {
     const connectionObject = mongoose.createConnection(CONFIG.GET_DATABASE_CONNECTION_URL(), {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
+        useFindAndModify: false, // check reason here https://mongoosejs.com/docs/deprecations.html#findandmodify
         useCreateIndex: true,
         poolSize: 10, // to have multiple connection in case of bottle neck
     });
@@ -23,8 +23,9 @@ export const configureDB = (): void => {
     });
 
     connectionObject.once('open', () => {
+        logger.info(`Connected to ${DB_NAMES.CORE_DB}`);
+
         // initialize database-models with connection object
         DbConnectionManager.intialize(connectionObject);
-        logger.info(`Connected to ${DB_NAMES.CORE_DB}`);
     });
 };

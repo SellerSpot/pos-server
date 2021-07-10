@@ -32,7 +32,6 @@
     },
     "homepage": "https://github.com/SellerSpot/pos-server#readme",
     "devDependencies": {
-        "@types/continuation-local-storage": "^3.2.3",
         "@types/cookie": "^0.4.0",
         "@types/express": "^4.17.9",
         "@types/node": "^14.14.14",
@@ -64,7 +63,7 @@
         "@sellerspot/database-models": "^10.8.4",
         "@sellerspot/universal-functions": "^1.5.9",
         "@sellerspot/universal-types": "^1.8.8",
-        "continuation-local-storage": "^3.2.1",
+        "cls-hooked": "^4.2.2",
         "cookie": "^0.4.1",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",

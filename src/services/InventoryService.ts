@@ -18,4 +18,12 @@ export class InventoryService {
         )) as IInventoryData;
         return createdProduct;
     };
+
+    static async searchInventoryProducts(query: string): Promise<IInventoryData[]> {
+        const { InventoryDbService } = tenantDbServices.pos;
+        const matchedBrands: IInventoryData[] = await InventoryDbService.searchInventoryProducts(
+            query,
+        );
+        return matchedBrands;
+    }
 }

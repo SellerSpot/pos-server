@@ -10,6 +10,7 @@ export default class InventorySchema {
         markup: Joi.number(),
         sellingPrice: Joi.number(),
         stock: Joi.number(),
+        mrp: Joi.number().required(),
         tags: Joi.array().items(Joi.string()),
         taxSettingId: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
     });

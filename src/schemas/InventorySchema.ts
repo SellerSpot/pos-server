@@ -11,6 +11,6 @@ export default class InventorySchema {
         sellingPrice: Joi.number(),
         stock: Joi.number(),
         tags: Joi.array().items(Joi.string()),
-        taxBracketId: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
+        taxSettingId: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
     });
 }

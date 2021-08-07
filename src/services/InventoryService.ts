@@ -1,8 +1,5 @@
-import { tenantDbServices } from '../../.yalc/@sellerspot/database-models/dist';
-import {
-    IAddProductToInventoryRequest,
-    IInventoryData,
-} from '../../.yalc/@sellerspot/universal-types/dist';
+import { tenantDbServices } from '@sellerspot/database-models';
+import { IAddProductToInventoryRequest, IInventoryData } from '@sellerspot/universal-types';
 
 export class InventoryService {
     static getAllInventoryProducts = async (): Promise<IInventoryData[]> => {

@@ -11,6 +11,7 @@ export default class InventorySchema {
                 outletId: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
                 isTrack: Joi.boolean(),
                 landingCost: Joi.number(),
+                isActive: Joi.boolean(),
                 markup: Joi.number(),
                 sellingPrice: Joi.number(),
                 stock: Joi.number(),

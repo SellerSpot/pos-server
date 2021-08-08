@@ -11,11 +11,9 @@ export class InventoryService {
 
     static addProductToInventory = async (
         newProduct: IAddProductToInventoryRequest,
-    ): Promise<IInventoryData> => {
+    ): Promise<IInventoryData[]> => {
         const { InventoryDbService } = tenantDbServices.pos;
-        const createdProduct = (await InventoryDbService.addProductToInventory(
-            newProduct,
-        )) as IInventoryData;
+        const createdProduct = await InventoryDbService.addProductToInventory(newProduct);
         return createdProduct;
     };
 

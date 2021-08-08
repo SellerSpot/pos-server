@@ -31,7 +31,7 @@ export class InventoryController {
     };
 
     static addProductToInventory: RequestHandler = async (req, res) => {
-        const response: IInventoryData = await InventoryService.addProductToInventory(
+        const response: IInventoryData[] = await InventoryService.addProductToInventory(
             <IAddProductToInventoryRequest>req.body,
         );
         res.status(STATUS_CODE.CREATED).send(<IAddProductToInventoryResponse>{

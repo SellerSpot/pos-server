@@ -1,11 +1,26 @@
 import { tenantDbServices } from '@sellerspot/database-models';
-import { IAddProductToInventoryRequest, IInventoryData } from '@sellerspot/universal-types';
+import {
+    IAddProductToInventoryRequest,
+    IEditProductInInventoryRequest,
+    IInventoryData,
+} from '@sellerspot/universal-types';
 
 export class InventoryService {
+    static getProductInventoryProducts = async (productId: string): Promise<IInventoryData> => {
+        const { InventoryDbService } = tenantDbServices.pos;
+        const products = await InventoryDbService.getAllInventoryProducts({ productId });
+        return products[0];
+    };
+
+    static getOutletInventoryProducts = async (outletId: string): Promise<IInventoryData[]> => {
+        const { InventoryDbService } = tenantDbServices.pos;
+        const products = await InventoryDbService.getAllInventoryProducts({ outletId });
+        return products;
+    };
+
     static getAllInventoryProducts = async (): Promise<IInventoryData[]> => {
         const { InventoryDbService } = tenantDbServices.pos;
-        const products: IInventoryData[] =
-            (await InventoryDbService.getAllInventoryProducts()) as IInventoryData[];
+        const products = await InventoryDbService.getAllInventoryProducts({});
         return products;
     };
 
@@ -17,11 +32,25 @@ export class InventoryService {
         return createdProduct;
     };
 
-    static async searchInventoryProducts(query: string): Promise<IInventoryData[]> {
+    static editProductInInventory = async (
+        productToUpdate: IEditProductInInventoryRequest,
+    ): Promise<IInventoryData> => {
         const { InventoryDbService } = tenantDbServices.pos;
-        const matchedBrands: IInventoryData[] = await InventoryDbService.searchInventoryProducts(
-            query,
-        );
-        return matchedBrands;
+        const updatedProduct = await InventoryDbService.editProductInInventory(productToUpdate);
+        return updatedProduct;
+    };
+
+    static async searchInventoryProducts(
+        query: string,
+        outletId: string,
+    ): Promise<IInventoryData[]> {
+        const { InventoryDbService } = tenantDbServices.pos;
+        const matchedProducts = await InventoryDbService.searchInventoryProducts(query, outletId);
+        return matchedProducts;
+    }
+
+    static async deleteInventoryProduct(productId: string, outletId: string): Promise<void> {
+        const { InventoryDbService } = tenantDbServices.pos;
+        await InventoryDbService.deleteProductFromInventory(productId, outletId);
     }
 }

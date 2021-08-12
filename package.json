@@ -11,7 +11,7 @@
         "build": "webpack --mode production --env ENV=production",
         "lint": "eslint src",
         "lint:fix": "eslint src --fix",
-        "yalc:link": "yalc link @sellerspot/database-models && yalc link @sellerspot/universal-types && yalc link @sellerspot/universal-functions",
+        "yalc:link": "yalc link @sellerspot/database-models @sellerspot/universal-types @sellerspot/universal-functions",
         "yalc:remove": "yalc remove --all",
         "update:packages": "npm install --save @sellerspot/database-models @sellerspot/universal-functions @sellerspot/universal-types",
         "prettier": "prettier --write src",

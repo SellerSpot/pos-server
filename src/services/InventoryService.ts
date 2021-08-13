@@ -3,6 +3,7 @@ import {
     IAddProductToInventoryRequest,
     IEditProductInInventoryRequest,
     IInventoryData,
+    ISearchInventoryProductsResponse,
 } from '@sellerspot/universal-types';
 
 export class InventoryService {
@@ -43,10 +44,10 @@ export class InventoryService {
     static async searchInventoryProducts(
         query: string,
         outletId: string,
-    ): Promise<IInventoryData[]> {
+    ): Promise<ISearchInventoryProductsResponse['data']> {
         const { InventoryDbService } = tenantDbServices.pos;
-        const matchedProducts = await InventoryDbService.searchInventoryProducts(query, outletId);
-        return matchedProducts;
+        const searchResult = await InventoryDbService.searchInventoryProducts(query, outletId);
+        return searchResult;
     }
 
     static async deleteInventoryProduct(productId: string, outletId: string): Promise<void> {

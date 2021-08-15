@@ -41,13 +41,13 @@ export class InventoryController {
 
     static searchInventoryProducts: RequestHandler = async (req, res) => {
         const params = req.query as unknown as ISearchResourceQueryParam;
-        const matchedBrands: IInventoryData[] = await InventoryService.searchInventoryProducts(
+        const searchResults = await InventoryService.searchInventoryProducts(
             params.query,
             req.params.outletid,
         );
         res.status(STATUS_CODE.OK).send(<ISearchInventoryProductsResponse>{
             status: true,
-            data: matchedBrands,
+            data: searchResults,
         });
     };
 

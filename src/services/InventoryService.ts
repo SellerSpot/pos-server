@@ -3,23 +3,24 @@ import {
     IAddProductToInventoryRequest,
     IEditProductInInventoryRequest,
     IInventoryData,
+    ISearchInventoryProductsResponse,
 } from '@sellerspot/universal-types';
 
 export class InventoryService {
     static getProductInventoryProducts = async (productId: string): Promise<IInventoryData> => {
-        const { InventoryDbService } = tenantDbServices.pos;
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
         const products = await InventoryDbService.getAllInventoryProducts({ productId });
         return products[0];
     };
 
     static getOutletInventoryProducts = async (outletId: string): Promise<IInventoryData[]> => {
-        const { InventoryDbService } = tenantDbServices.pos;
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
         const products = await InventoryDbService.getAllInventoryProducts({ outletId });
         return products;
     };
 
     static getAllInventoryProducts = async (): Promise<IInventoryData[]> => {
-        const { InventoryDbService } = tenantDbServices.pos;
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
         const products = await InventoryDbService.getAllInventoryProducts({});
         return products;
     };
@@ -27,7 +28,7 @@ export class InventoryService {
     static addProductToInventory = async (
         newProduct: IAddProductToInventoryRequest,
     ): Promise<IInventoryData[]> => {
-        const { InventoryDbService } = tenantDbServices.pos;
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
         const createdProduct = await InventoryDbService.addProductToInventory(newProduct);
         return createdProduct;
     };
@@ -35,7 +36,7 @@ export class InventoryService {
     static editProductInInventory = async (
         productToUpdate: IEditProductInInventoryRequest,
     ): Promise<IInventoryData> => {
-        const { InventoryDbService } = tenantDbServices.pos;
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
         const updatedProduct = await InventoryDbService.editProductInInventory(productToUpdate);
         return updatedProduct;
     };
@@ -43,14 +44,14 @@ export class InventoryService {
     static async searchInventoryProducts(
         query: string,
         outletId: string,
-    ): Promise<IInventoryData[]> {
-        const { InventoryDbService } = tenantDbServices.pos;
-        const matchedProducts = await InventoryDbService.searchInventoryProducts(query, outletId);
-        return matchedProducts;
+    ): Promise<ISearchInventoryProductsResponse['data']> {
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
+        const searchResult = await InventoryDbService.searchInventoryProducts(query, outletId);
+        return searchResult;
     }
 
     static async deleteInventoryProduct(productId: string, outletId: string): Promise<void> {
-        const { InventoryDbService } = tenantDbServices.pos;
+        const { InventoryService: InventoryDbService } = tenantDbServices.pos;
         await InventoryDbService.deleteProductFromInventory(productId, outletId);
     }
 }

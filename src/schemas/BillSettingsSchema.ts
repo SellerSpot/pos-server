@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { IUpdateBillSettingsRequest } from '../../.yalc/@sellerspot/universal-types/dist';
+import { IUpdateBillSettingsRequest } from '@sellerspot/universal-types';
 
 export default class BillSettingsSchema {
     static updateBillSettingsSchema = joi.object<IUpdateBillSettingsRequest>({

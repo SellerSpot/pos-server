@@ -7,6 +7,7 @@ import {
     IGetOutletInventoryResourcePathParam,
     IGetProductInventoryResourcePathParam,
     IInventoryResourcePathParam,
+    ISearchInventoryQueryParam,
 } from '@sellerspot/universal-types';
 
 export default class InventorySchema {
@@ -51,6 +52,13 @@ export default class InventorySchema {
 
     static inventoryResourcePathParam = Joi.object<IInventoryResourcePathParam>({
         outletid: Joi.string().regex(RegexUtil.OBJECT_ID),
+    });
+
+    static inventoryResourceQueryParam = Joi.object<ISearchInventoryQueryParam>({
+        query: Joi.string().required(),
+        lookup: Joi.string()
+            .optional()
+            .valid(...(<ISearchInventoryQueryParam['lookup'][]>['all', 'catalogue', 'inventory'])),
     });
 
     static inventoryProductResourcePathParam = Joi.object<IGetProductInventoryResourcePathParam>({

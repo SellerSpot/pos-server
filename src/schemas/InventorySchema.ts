@@ -12,9 +12,8 @@ import {
 export default class InventorySchema {
     static addProductToInventory = Joi.object<IAddProductToInventoryRequest>({
         productId: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
-        tags: Joi.array().items(Joi.string()),
-        configurations: Joi.array().items(
-            Joi.object<IAddProductToInventoryRequest['configurations'][0]>({
+        outlets: Joi.array().items(
+            Joi.object<IAddProductToInventoryRequest['outlets'][0]>({
                 outlet: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
                 isTrack: Joi.boolean(),
                 landingCost: Joi.number(),
@@ -23,15 +22,15 @@ export default class InventorySchema {
                 sellingPrice: Joi.number(),
                 stock: Joi.number(),
                 mrp: Joi.number().required(),
-                taxSetting: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
+                taxBracket: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
             }),
         ),
     });
 
     static editProductInInventory = Joi.object<IEditProductInInventoryRequest>({
         productId: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
-        configurations: Joi.array().items(
-            Joi.object<IAddProductToInventoryRequest['configurations'][0]>({
+        outlets: Joi.array().items(
+            Joi.object<IAddProductToInventoryRequest['outlets'][0]>({
                 outlet: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
                 isTrack: Joi.boolean(),
                 landingCost: Joi.number(),
@@ -40,7 +39,7 @@ export default class InventorySchema {
                 sellingPrice: Joi.number(),
                 stock: Joi.number(),
                 mrp: Joi.number().required(),
-                taxSetting: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
+                taxBracket: Joi.string().regex(RegexUtil.OBJECT_ID).required(),
             }),
         ),
     });

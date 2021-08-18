@@ -17,21 +17,21 @@ router.get(
 );
 
 router.get(
-    ROUTES.POS.INVENTORY.GET_OUTLET,
+    ROUTES.POS.INVENTORY.GET_BY_OUTLET_ID,
     middlewares.validateSchema({
         pathParamSchema: InventorySchema.inventoryOutletResourcePathParam,
     }),
     middlewares.auth,
-    InventoryController.getOutletInventoryProducts,
+    InventoryController.getInventoryByOutletId,
 );
 
 router.get(
-    ROUTES.POS.INVENTORY.GET_PRODUCT,
+    ROUTES.POS.INVENTORY.GET_BY_PRODUCT_ID,
     middlewares.validateSchema({
         pathParamSchema: InventorySchema.inventoryProductResourcePathParam,
     }),
     middlewares.auth,
-    InventoryController.getProductInventoryProducts,
+    InventoryController.getGetInventoryByProductId,
 );
 
 router.get(

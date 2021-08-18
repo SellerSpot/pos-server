@@ -7,24 +7,24 @@ import {
     STATUS_CODE,
     ISearchResourceQueryParam,
     ISearchInventoryProductsResponse,
-    IGetOutletInventoryProductResponse,
-    IGetProductInventoryProductResponse,
     IEditProductInInventoryRequest,
     IEditInventoryProductResponse,
+    IGetInventoryByOutletIdResponse,
+    IGetInventoryByProductIdResponse,
 } from '@sellerspot/universal-types';
 import { InventoryService } from '../services/InventoryService';
 
 export class InventoryController {
-    static getOutletInventoryProducts: RequestHandler = async (req, res) => {
-        const response: IGetOutletInventoryProductResponse = {
+    static getInventoryByOutletId: RequestHandler = async (req, res) => {
+        const response: IGetInventoryByOutletIdResponse = {
             status: true,
             data: await InventoryService.getOutletInventoryProducts(req.params.outletid),
         };
         res.status(STATUS_CODE.OK).send(response);
     };
 
-    static getProductInventoryProducts: RequestHandler = async (req, res) => {
-        const response: IGetProductInventoryProductResponse = {
+    static getGetInventoryByProductId: RequestHandler = async (req, res) => {
+        const response: IGetInventoryByProductIdResponse = {
             status: true,
             data: await InventoryService.getProductInventoryProducts(req.params.productid),
         };

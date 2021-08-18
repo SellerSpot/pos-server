@@ -7,26 +7,26 @@ import {
     STATUS_CODE,
     ISearchResourceQueryParam,
     ISearchInventoryProductsResponse,
-    IGetOutletInventoryProductResponse,
-    IGetProductInventoryProductResponse,
     IEditProductInInventoryRequest,
-    IEditInventoryProductResponse,
-    IInventoryResourcePathParam,
+    IGetInventoryByOutletIdResponse,
+    IGetInventoryByProductIdResponse,
     ISearchInventoryQueryParam,
+    IInventoryResourcePathParam,
+    IEditProductInInventoryResponse,
 } from '@sellerspot/universal-types';
 import { InventoryService } from '../services/InventoryService';
 
 export class InventoryController {
-    static getOutletInventoryProducts: RequestHandler = async (req, res) => {
-        const response: IGetOutletInventoryProductResponse = {
+    static getInventoryByOutletId: RequestHandler = async (req, res) => {
+        const response: IGetInventoryByOutletIdResponse = {
             status: true,
             data: await InventoryService.getOutletInventoryProducts(req.params.outletid),
         };
         res.status(STATUS_CODE.OK).send(response);
     };
 
-    static getProductInventoryProducts: RequestHandler = async (req, res) => {
-        const response: IGetProductInventoryProductResponse = {
+    static getGetInventoryByProductId: RequestHandler = async (req, res) => {
+        const response: IGetInventoryByProductIdResponse = {
             status: true,
             data: await InventoryService.getProductInventoryProducts(req.params.productid),
         };
@@ -71,7 +71,7 @@ export class InventoryController {
         const response: IInventoryData = await InventoryService.editProductInInventory(
             <IEditProductInInventoryRequest>req.body,
         );
-        res.status(STATUS_CODE.CREATED).send(<IEditInventoryProductResponse>{
+        res.status(STATUS_CODE.CREATED).send(<IEditProductInInventoryResponse>{
             status: true,
             data: response,
         });

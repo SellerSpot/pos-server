@@ -10,7 +10,7 @@ router.get(
     ROUTES.POS.INVENTORY.SEARCH,
     middlewares.validateSchema({
         pathParamSchema: InventorySchema.inventoryResourcePathParam,
-        queryParamSchema: CommonSchema.resourceQueryParam,
+        queryParamSchema: InventorySchema.inventoryResourceQueryParam,
     }),
     middlewares.auth,
     InventoryController.searchInventoryProducts,

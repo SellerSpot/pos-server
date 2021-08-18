@@ -8,9 +8,11 @@ import {
     ISearchResourceQueryParam,
     ISearchInventoryProductsResponse,
     IEditProductInInventoryRequest,
-    IEditInventoryProductResponse,
     IGetInventoryByOutletIdResponse,
     IGetInventoryByProductIdResponse,
+    ISearchInventoryQueryParam,
+    IInventoryResourcePathParam,
+    IEditProductInInventoryResponse,
 } from '@sellerspot/universal-types';
 import { InventoryService } from '../services/InventoryService';
 
@@ -40,11 +42,15 @@ export class InventoryController {
     };
 
     static searchInventoryProducts: RequestHandler = async (req, res) => {
-        const params = req.query as unknown as ISearchResourceQueryParam;
+        const query = req.query as unknown as ISearchInventoryQueryParam;
+        const params = req.params as unknown as IInventoryResourcePathParam;
+
         const searchResults = await InventoryService.searchInventoryProducts(
-            params.query,
-            req.params.outletid,
+            query.query,
+            params.outletid,
+            query.lookup,
         );
+
         res.status(STATUS_CODE.OK).send(<ISearchInventoryProductsResponse>{
             status: true,
             data: searchResults,
@@ -65,7 +71,7 @@ export class InventoryController {
         const response: IInventoryData = await InventoryService.editProductInInventory(
             <IEditProductInInventoryRequest>req.body,
         );
-        res.status(STATUS_CODE.CREATED).send(<IEditInventoryProductResponse>{
+        res.status(STATUS_CODE.CREATED).send(<IEditProductInInventoryResponse>{
             status: true,
             data: response,
         });

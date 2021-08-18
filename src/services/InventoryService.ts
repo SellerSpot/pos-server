@@ -4,6 +4,7 @@ import {
     IEditProductInInventoryRequest,
     IInventoryData,
     ISearchInventoryProductsResponse,
+    ISearchInventoryQueryParam,
 } from '@sellerspot/universal-types';
 
 export class InventoryService {
@@ -44,9 +45,14 @@ export class InventoryService {
     static async searchInventoryProducts(
         query: string,
         outletId: string,
+        lookup: ISearchInventoryQueryParam['lookup'] = 'all',
     ): Promise<ISearchInventoryProductsResponse['data']> {
         const { InventoryService: InventoryDbService } = tenantDbServices.pos;
-        const searchResult = await InventoryDbService.searchInventoryProducts(query, outletId);
+        const searchResult = await InventoryDbService.searchInventoryProducts(
+            query,
+            outletId,
+            lookup,
+        );
         return searchResult;
     }
 
